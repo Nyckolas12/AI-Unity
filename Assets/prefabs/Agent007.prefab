@@ -125,8 +125,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tagName: Agent02
-  maxDistance: 20
-  maxAngle: 180
+  maxDistance: 100
+  maxAngle: 270
 --- !u!114 &6505839997080866772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,9 +141,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: -6032837414364231056}
   AgentData: {fileID: 11400000, guid: 72bd61d48b977264bb73aa9c18ffe0ae, type: 2}
-  seekPerception: {fileID: 5359905276234812262, guid: 631e5f6e976af4a458db56b064822d5d, type: 3}
+  seekPerception: {fileID: 2239200585490477229}
   fleePerception: {fileID: 0}
-  flockPerception: {fileID: 0}
+  flockPerception: {fileID: 2239200585490477229}
 --- !u!114 &-6032837414364231056
 MonoBehaviour:
   m_ObjectHideFlags: 0

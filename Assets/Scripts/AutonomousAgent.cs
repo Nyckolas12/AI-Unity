@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AutonomousAgent : AIAgent
 {
@@ -51,8 +52,8 @@ public class AutonomousAgent : AIAgent
             var gameObjects = flockPerception.GetGameObjects();
             if (gameObjects.Length > 0)
             {
-                movement.ApplyForce(Cohesion(gameObjects));
-                movement.ApplyForce(Separation(gameObjects));
+               // movement.ApplyForce(Cohesion(gameObjects));
+                //movement.ApplyForce(Separation(gameObjects, AgentData.radius));
                 movement.ApplyForce(Alignmentn(gameObjects));
                 
             }
@@ -94,13 +95,39 @@ public class AutonomousAgent : AIAgent
         return force;
     }
 
-    private Vector3 Separation(GameObject[] neighbors)
+    private Vector3 Separation(GameObject[] neighbors, float radius)
     {
-        return Vector3.zero;
+        Vector3 spearation = Vector3.zero;
+        foreach (var neighbor in neighbors)
+        {
+            Vector3 direction = transform.position - neighbor.transform.position;
+            float distance = direction.sqrMagnitude;
+
+            if (distance < radius && distance > 0)
+            {
+                spearation += direction / (distance * distance);
+            }
+
+        }
+        Vector3 force = GetSteeringForce(spearation);
+        return force;
     }
     private Vector3 Alignmentn(GameObject[] neighbors)
     {
-        return Vector3.zero;
+        Vector3 velocities = Vector3.zero;
+        foreach(var neighbor in neighbors)
+        {
+            Rigidbody rb = neighbor.GetComponent<Rigidbody>();
+            if(rb != null)
+            {
+                velocities += rb.angularVelocity;
+            }
+
+
+        }
+        Vector3 averageVelocity = velocities / neighbors.Length;
+        Vector3 force = GetSteeringForce(averageVelocity);
+        return force;
     }
     
 
